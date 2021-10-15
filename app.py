@@ -7,11 +7,13 @@ hide_menu_style = """
         <style>
         #MainMenu {visibility: hidden;}
         </style>
-        """
+"""
 
-st.markdown(hide_menu_style, unsafe_allow_html=True)
+st.markdown(hide_menu_style, unsafe_allow_html=False)
 
 # From: https://stackoverflow.com/questions/39922967/python-determine-tic-tac-toe-winner
+
+
 def checkRows(board):
     for row in board:
         if len(set(row)) == 1:
