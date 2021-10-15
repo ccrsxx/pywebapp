@@ -1,6 +1,8 @@
 import streamlit as st
 import numpy as np
 
+st.set_page_config(page_title='risal')
+
 # From: https://stackoverflow.com/questions/39922967/python-determine-tic-tac-toe-winner
 def checkRows(board):
     for row in board:
