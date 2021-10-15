@@ -29,10 +29,8 @@ def checkWin(board):
 def show():
     st.write(
         """
-        ## 👾 Tic Tac Toe
-        
-        Let's play! This demo stores the entire game state (as a dict) in 
-        `st.session_state` and uses the new callbacks to handle button clicks.
+        ## 🕹️ Tic Tac Toe
+        in development now for university... by ccrsxx#8408
         """
     )
     st.write("")
@@ -57,7 +55,7 @@ def show():
 
     # Show one button for each field.
     for i, row in enumerate(st.session_state.board):
-        cols = st.beta_columns([0.1, 0.1, 0.1, 0.7])
+        cols = st.columns([0.1, 0.1, 0.1, 0.7])
         for j, field in enumerate(row):
             cols[j].button(
                 field,
