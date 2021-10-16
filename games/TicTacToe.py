@@ -1,6 +1,13 @@
 import streamlit as st
 import numpy as np
 
+style = """
+<style>
+footer {visibility: hidden;}
+</style>
+"""
+st.markdown(style, unsafe_allow_html=True)
+
 def checkRows(board):
     for row in board:
         if len(set(row)) == 1:
@@ -26,9 +33,9 @@ def checkWin(board):
 
 
 def play():
-    st.write(
+    st.header(
         """
-        ## 🕹️ Tic Tac Toe
+        🕹️ Tic Tac Toe
         in development now for university... by ccrsxx#8408
         """)
     st.write("")
