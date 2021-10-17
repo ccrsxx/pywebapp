@@ -5,7 +5,7 @@ import os
 
 
 def get_word(language: str, length: int) -> str:
-    with open(os.path.abspath('assets\\language.json')) as raw:
+    with open(os.path.abspath(os.path.join('assets', 'language.json'))) as raw:
         data = json.load(raw)[language]
         word = random.choice(data)
 
