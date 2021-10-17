@@ -14,6 +14,7 @@ def get_word(language: str, length: int) -> str:
 
         return word
 
+@st.cache
 def restart(language: str = 'English', length: int = 6):
     st.session_state.word = get_word(language, length)
     st.session_state.guessed = []
