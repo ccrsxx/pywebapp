@@ -61,9 +61,7 @@ def main():
         debug.error(f"😓 **You lost**, the word was **{st.session_state.word}**")
         st.session_state.over = True
         placeholder.empty()
-
     elif all(c in st.session_state.guessed for c in st.session_state.word):
-        debug.write([c for c in st.session_state.guessed])
         st.success(f"🎈 **YOU WIN**")
         st.session_state.win += 1
         st.session_state.over = True
