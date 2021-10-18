@@ -1,14 +1,6 @@
 import streamlit as st
 import numpy as np
 
-style = """
-<style>
-footer {visibility: hidden;}
-</style>
-"""
-st.markdown(style, unsafe_allow_html=True)
-
-
 def checkRows(board):
     for row in board:
         if len(set(row)) == 1:
@@ -39,7 +31,6 @@ def play():
         🕹️ Tic Tac Toe
         in development now for university... by ccrsxx#8408
         """)
-    st.write("")
 
     # Initialize state.
     if "board" not in st.session_state:
