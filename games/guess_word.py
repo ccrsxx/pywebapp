@@ -14,15 +14,16 @@ def get_word(language: str, length: int) -> str:
 
         return word
 
-def init(language: str = 'English', length: int = 6, heart: int = 5):
+def init(language: str = 'English', length: int = 6, heart: int = 5, input=True):
     st.session_state.word = get_word(language, length)
+    if input: st.session_state.input = 0
     st.session_state.lives = heart
     st.session_state.guessed = []
-    st.session_state.input = ''
     st.session_state.win = 0
 
 def restart():
-    init(st.session_state.language, st.session_state.length, st.session_state.heart)
+    init(st.session_state.language, st.session_state.length, st.session_state.heart, input=False)
+    st.session_state.input += 1
 
 def main():
     if 'word' not in st.session_state:
@@ -41,7 +42,7 @@ def main():
         st.slider('Set length of the word', 3, 20, 6, key='length', on_change=restart)
 
     placeholder, debug = st.empty(), st.empty()
-    guess = placeholder.text_input('Guess a letter', value='', key='input', max_chars=1).lower()
+    guess = placeholder.text_input('Guess a letter', key=st.session_state.input, max_chars=1).lower()
 
     if not guess or not guess.isalpha():
         debug.write('Please input letter')
@@ -70,6 +71,8 @@ def main():
 
     guess_box.button(' - '.join([c if c in st.session_state.guessed else '_' for c in st.session_state.word]))
     letter_box.button(f'{" ".join(st.session_state.guessed) if st.session_state.guessed else "Letter History"}')
+
+    st.write(st.session_state)
 
 if __name__ == '__main__':
     main()
