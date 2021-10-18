@@ -72,7 +72,5 @@ def main():
     guess_box.button(' - '.join([c if c in st.session_state.guessed else '_' for c in st.session_state.word]))
     letter_box.button(f'{" ".join(st.session_state.guessed) if st.session_state.guessed else "Letter History"}')
 
-    st.write(st.session_state)
-
 if __name__ == '__main__':
     main()
