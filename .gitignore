@@ -1,4 +1,6 @@
+# cache
 __pycache__
 .vscode
+
+# virtual environment
 environment
-test
