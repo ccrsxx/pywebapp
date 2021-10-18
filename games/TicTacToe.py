@@ -8,7 +8,6 @@ footer {visibility: hidden;}
 """
 st.markdown(style, unsafe_allow_html=True)
 
-
 def checkRows(board):
     for row in board:
         if len(set(row)) == 1:
@@ -72,7 +71,6 @@ def play():
 
     if st.session_state.winner:
         st.success(f"Congrats! {st.session_state.winner} won the game! 🎈")
-
 
 if __name__ == '__main__':
     play()
