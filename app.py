@@ -9,10 +9,9 @@ def page():
     )
 
     style = """
-        <style>
-            footer {visibility: hidden;}
-            header {visibility: hidden;}
-        </style>
+    <style>
+    footer {visibility: hidden;}
+    </style>
     """
     st.markdown(style, unsafe_allow_html=True)
 
