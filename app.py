@@ -1,4 +1,3 @@
-import os
 import streamlit as st
 from games import guess_word
 
@@ -18,7 +17,6 @@ def page():
 
 
 def main():
-    os.environ['DISPLAY'] = ':0'
     page()
     guess_word.main()
 

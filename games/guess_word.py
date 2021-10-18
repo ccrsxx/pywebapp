@@ -1,8 +1,8 @@
-import pyautogui as pag
 import streamlit as st
 import random
 import json
 import os
+
 
 def get_word(language: str, length: int) -> str:
     with open(os.path.abspath(os.path.join('assets', 'language.json'))) as raw:
@@ -54,8 +54,6 @@ def main():
     else:
         debug.info('Good guess')
         st.session_state.guessed.append(guess)
-
-    pag.press('backspace')
 
     if st.session_state.lives == 0:
         debug.error(f"😓 **You lost**, the word was **{st.session_state.word}**")
