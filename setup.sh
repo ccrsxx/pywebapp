@@ -1,8 +1,3 @@
-echo "\
-DISPLAY=:0\n\
-" > ~/.bashrc
-source ~/.bashrc
-
 mkdir -p ~/.streamlit/
 echo "\
 [server]\n\
