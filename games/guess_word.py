@@ -14,7 +14,6 @@ def get_word(language: str, length: int) -> str:
 
         return word
 
-
 def init(language: str = 'English', length: int = 6, heart: int = 5, post_init=False):
     if not post_init:
         st.session_state.input = 0

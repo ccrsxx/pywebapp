@@ -25,21 +25,28 @@ def checkWin(board):
     return checkDiagonals(board)
 
 
+def init():
+    st.session_state.board = np.full((3, 3), '.', dtype=str)
+    st.session_state.next_player = 'X'
+    st.session_state.winner = None
+
+def computer_player():
+    pass
+
+
 def play():
-    st.header(
-        """
-        🕹️ Tic Tac Toe
-        in development now for university... by ccrsxx#8408
-        """)
+    st.write("""
+        # 🕹️ Tic Tac Toe
+        in development now for university... by **ccrsxx#8408**
+    """)
 
     # Initialize state.
     if "board" not in st.session_state:
-        st.session_state.board = np.full((3, 3), ".", dtype=str)
-        st.session_state.next_player = "X"
-        st.session_state.winner = None
+        init()
 
     # Define callbacks to handle button clicks.
     def handle_click(i, j):
+        st.write(i, j)
         if not st.session_state.winner:
             # TODO: Handle the case when nobody wins but the game is over!
             st.session_state.board[i, j] = st.session_state.next_player
@@ -64,6 +71,7 @@ def play():
     if st.session_state.winner:
         st.success(f"Congrats! {st.session_state.winner} won the game! 🎈")
 
+    st.write(st.session_state)
 
 if __name__ == '__main__':
     play()
