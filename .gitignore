@@ -3,6 +3,7 @@ __pycache__
 .vscode
 
 # virtual environment
+activate.ps1
 environment
 
 # tests
