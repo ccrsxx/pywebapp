@@ -1,4 +1,3 @@
-from numpy.core.numeric import ones_like
 import streamlit as st
 import numpy as np
 import random
@@ -16,8 +15,7 @@ def init(post_init=False):
 def check_state():
     if st.session_state.winner and st.session_state.mutate:
         st.session_state.mutate = False
-        st.session_state.win[st.session_state.winner] =\
-             st.session_state.win.get(st.session_state.winner, 0) + 1
+        st.session_state.win[st.session_state.winner] = st.session_state.win.get(st.session_state.winner, 0) + 1
         st.success(f"Congrats! {st.session_state.winner} won the game! 🎈")
     elif not board_available() and not st.session_state.winner:
         st.info(f'Tie')
@@ -72,7 +70,7 @@ def play():
     if "board" not in st.session_state:
         init()
 
-    reset, won_game, player, settings = st.columns([.5, .6,  1, 1])
+    reset, score, player, settings = st.columns([.5, .6,  1, 1])
     reset.button('New game', on_click=init, args=(True, ))
 
     with settings.expander('Settings'):
@@ -96,9 +94,9 @@ def play():
 
     # Show one button for each field.
     for i, row in enumerate(st.session_state.board):
-        cols = st.columns([0.1, 0.1, 0.1, 0.7])
+        cols = st.columns([5, 1, 1, 1, 5])
         for j, field in enumerate(row):
-            cols[j].button(
+            cols[j+1].button(
                 field,
                 key=f"{i}-{j}",
                 on_click=handle_click if st.session_state.player == 'X' or st.session_state.opponent == 'Human' else computer_player(),
@@ -107,11 +105,8 @@ def play():
 
     check_state()
 
-    won_game.button(f'❌{st.session_state.win["X"]} 🆚 {st.session_state.win["O"]}⭕')
+    score.button(f'❌{st.session_state.win["X"]} 🆚 {st.session_state.win["O"]}⭕')
     player.button(f'{"❌" if st.session_state.player == "X" else "⭕"}\'s turn' if not st.session_state.winner else f'🏁 Game finished')
-
-    st.write(st.session_state)
-
 
 if __name__ == '__main__':
     play()
