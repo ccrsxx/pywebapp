@@ -1,11 +1,11 @@
 import streamlit as st
-from games import guess_word
+from games import tictactoe
 
 
 def page():
     st.set_page_config(
-        page_title='Guess Word',
-        page_icon='🔠'
+        page_title='rip brain',
+        page_icon='🪦'
     )
 
     style = """
@@ -20,7 +20,7 @@ def page():
 
 def main():
     page()
-    guess_word.main()
+    tictactoe.main()
 
 
 if __name__ == '__main__':
