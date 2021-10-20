@@ -1,5 +1,5 @@
-import random
 import streamlit as st
+import random
 
 
 def get_number(length: int) -> int:
