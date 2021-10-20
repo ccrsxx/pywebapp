@@ -26,7 +26,7 @@ def main():
 
     st.title('🔢 Guess Number')
 
-    reset, won_game, set_range = st.columns([.4, 1, 1])
+    reset, win, set_range = st.columns([.4, 1, 1])
     reset.button('New game', on_click=restart)
 
     with set_range.expander('Set range'):
@@ -51,9 +51,7 @@ def main():
             st.session_state.win += 1
             placeholder.empty()
 
-    won_game.button(f'🏆 {st.session_state.win}')
-
-    st.write(st.session_state.number)
+    win.button(f'🏆 {st.session_state.win}')
 
 
 if __name__ == '__main__':

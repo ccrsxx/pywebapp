@@ -14,6 +14,7 @@ def get_word(language: str, length: int) -> str:
 
         return word
 
+
 def init(language: str = 'English', length: int = 6, heart: int = 5, post_init=False):
     if not post_init:
         st.session_state.input = 0
@@ -36,7 +37,7 @@ def main():
     st.title('🔠 Guess Word')
     st.write('University project, still in development by **ccrsxx#8408**')
 
-    reset, won_game, lives, settings = st.columns([.45, .3,  1, 1])
+    reset, win, lives, settings = st.columns([.45, .3,  1, 1])
     reset.button('New game', on_click=restart)
 
     with settings.expander('Settings'):
@@ -75,7 +76,7 @@ def main():
 
     lives.button(
         f'{("❤️" * st.session_state.lives) if st.session_state.lives else "💀 Lost"}')
-    won_game.button(f'🏆 {st.session_state.win}')
+    win.button(f'🏆 {st.session_state.win}')
 
     guess_box, letter_box = st.columns([1, .23])
 
