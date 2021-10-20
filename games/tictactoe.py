@@ -66,9 +66,19 @@ def computer_player():
         handle_click(computer_move[0], computer_move[1])
 
 
-def main():
-    global handle_click
+def handle_click(i, j):
+    if (i, j) not in check_available_moves(extra=True):
+        st.session_state.warning = True
+    elif not st.session_state.winner:
+        st.session_state.warning = False
+        st.session_state.board[i, j] = st.session_state.player
+        st.session_state.player = "O" if st.session_state.player == "X" else "X"
+        winner = check_win(st.session_state.board)
+        if winner != ".":
+            st.session_state.winner = winner
 
+
+def main():
     st.write("""
         # ❎🅾️ Tic Tac Toe
         in development now for university... by **ccrsxx#8408**
@@ -84,17 +94,6 @@ def main():
         st.write('**Warning**: changing this setting will restart your game')
         st.selectbox('Set opponent', ['Computer', 'Human'],
                      key='opponent', on_change=init, args=(True, ))
-
-    def handle_click(i, j):
-        if (i, j) not in check_available_moves(extra=True):
-            st.session_state.warning = True
-        elif not st.session_state.winner:
-            st.session_state.warning = False
-            st.session_state.board[i, j] = st.session_state.player
-            st.session_state.player = "O" if st.session_state.player == "X" else "X"
-            winner = check_win(st.session_state.board)
-            if winner != ".":
-                st.session_state.winner = winner
 
     for i, row in enumerate(st.session_state.board):
         cols = st.columns([5, 1, 1, 1, 5])
@@ -114,8 +113,6 @@ def main():
     player.button(
         f'{"❌" if st.session_state.player == "X" else "⭕"}\'s turn'
         if not st.session_state.winner else f'🏁 Game finished')
-
-    st.write(st.session_state)
 
 
 if __name__ == '__main__':
