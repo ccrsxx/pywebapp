@@ -21,16 +21,22 @@ def restart():
 
 
 def main():
+    st.write(
+        """
+        # 🔢 Guess Number
+        University project, still in development by **ccrsxx#8408**
+        """
+    )
+
     if 'number' not in st.session_state:
         init()
 
-    st.title('🔢 Guess Number')
 
-    reset, win, set_range = st.columns([.4, 1, 1])
+    reset, win, set_range = st.columns([.39, 1, 1])
     reset.button('New game', on_click=restart)
 
-    with set_range.expander('Set range'):
-        st.select_slider('Input max range', [10**i for i in range(1, 6)],
+    with set_range.expander('Settings'):
+        st.select_slider('Set max range', [10**i for i in range(1, 6)],
                          value=100, key='length', on_change=restart)
 
     placeholder, debug = st.empty(), st.empty()

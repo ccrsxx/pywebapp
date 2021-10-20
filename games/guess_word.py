@@ -31,11 +31,15 @@ def restart():
 
 
 def main():
+    st.write(
+        '''
+        # 🔠 Guess Word
+        University project, still in development by **ccrsxx#8408**
+        '''
+    )
+
     if 'word' not in st.session_state:
         init()
-
-    st.title('🔠 Guess Word')
-    st.write('University project, still in development by **ccrsxx#8408**')
 
     reset, win, lives, settings = st.columns([.45, .3,  1, 1])
     reset.button('New game', on_click=restart)
