@@ -14,18 +14,12 @@ def init(post_init=False):
     st.session_state.over = False
 
 
-def check_state():
-    if st.session_state.winner:
-        st.success(f"Congrats! {st.session_state.winner} won the game! 🎈")
-    if st.session_state.warning and not st.session_state.over:
-        st.warning('⚠️ This move already exist')
-    if st.session_state.winner and not st.session_state.over:
-        st.session_state.over = True
-        st.session_state.win[st.session_state.winner] = st.session_state.win.get(
-            st.session_state.winner, 0) + 1
-    elif not check_available_moves() and not st.session_state.winner:
-        st.info(f'It\'s a tie 📍')
-        st.session_state.over = True
+def check_available_moves(extra=False) -> list:
+    raw_moves = [row for col in st.session_state.board.tolist() for row in col]
+    num_moves = [i for i, spot in enumerate(raw_moves) if spot == '.']
+    if extra:
+        return [(i // 3, i % 3) for i in num_moves]
+    return num_moves
 
 
 def check_rows(board):
@@ -43,6 +37,20 @@ def check_diagonals(board):
     return None
 
 
+def check_state():
+    if st.session_state.winner:
+        st.success(f"Congrats! {st.session_state.winner} won the game! 🎈")
+    if st.session_state.warning and not st.session_state.over:
+        st.warning('⚠️ This move already exist')
+    if st.session_state.winner and not st.session_state.over:
+        st.session_state.over = True
+        st.session_state.win[st.session_state.winner] = st.session_state.win.get(
+            st.session_state.winner, 0) + 1
+    elif not check_available_moves() and not st.session_state.winner:
+        st.info(f'It\'s a tie 📍')
+        st.session_state.over = True
+
+
 def check_win(board):
     for new_board in [board, np.transpose(board)]:
         result = check_rows(new_board)
@@ -51,23 +59,16 @@ def check_win(board):
     return check_diagonals(board)
 
 
-def check_available_moves(extra=False):
-    raw_moves = [row for col in st.session_state.board.tolist() for row in col]
-    num_moves = [i for i, spot in enumerate(raw_moves) if spot == '.']
-    if extra:
-        return [(i // 3, i % 3) for i in num_moves]
-    return num_moves
-
-
 def computer_player():
     moves = check_available_moves(extra=True)
     if moves:
-        c_move = random.choice(moves)
-        handle_click(c_move[0], c_move[1])
+        computer_move = random.choice(moves)
+        handle_click(computer_move[0], computer_move[1])
 
 
 def main():
     global handle_click
+
     st.write("""
         # ❎🅾️ Tic Tac Toe
         in development now for university... by **ccrsxx#8408**
@@ -113,6 +114,8 @@ def main():
     player.button(
         f'{"❌" if st.session_state.player == "X" else "⭕"}\'s turn'
         if not st.session_state.winner else f'🏁 Game finished')
+
+    st.write(st.session_state)
 
 
 if __name__ == '__main__':
