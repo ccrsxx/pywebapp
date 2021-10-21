@@ -5,9 +5,9 @@ from games import guess_number, guess_word, tic_tac_toe, mail
 def init():
     st.session_state.project = False
     st.session_state.game = False
-    st.session_state.page = 'Home'
+    st.session_state.page = 'Homepage'
     st.session_state.pages = {
-        'Home': home,
+        'Homepage': home,
         'About me': about,
         'Message me': mail.main,
         'Guess Number': guess_number.main,
@@ -43,6 +43,7 @@ def home():
         '''
     )
 
+
 def about():
     
     st.write(
@@ -73,8 +74,9 @@ def draw_style():
 def load_page():
     st.session_state.pages[st.session_state.page]()
 
+
 def set_page(loc=None, reset=False):
-    if not st.session_state.page == 'Home':
+    if not st.session_state.page == 'Homepage':
         for key in list(st.session_state.keys()):
             if key not in ('project', 'pages', 'page', 'set', 'game'):
                 st.session_state.pop(key)
@@ -92,10 +94,12 @@ def set_page(loc=None, reset=False):
     else:
         pass
 
+
 def change_button():
     set_page('Guess Number')
     st.session_state.game = True
     st.session_state.project = True
+
 
 def main():
     if 'page' not in st.session_state:
@@ -104,25 +108,26 @@ def main():
     draw_style()
 
     with st.sidebar:
-        project, about = st.columns([1, 1])
+        project, about, source = st.columns([1, .8, 1])
 
         if not st.session_state.project:
             project.button('📌 Project', on_click=change_button)
         else:
-            project.button('Home', on_click=set_page, args=('Home', True))
+            project.button('🏠 Homepage', on_click=set_page, args=('Homepage', True))
 
         if st.session_state.project and st.session_state.game:
             st.selectbox('Page contents', ['Guess Number', 'Guess Word', 'Tic Tac Toe'], key='set', on_change=set_page)
 
-        st.button('✉️ Send me a message', on_click=set_page, args=('Message me', ))
         about.button('About me', on_click=set_page, args=('About me', ))
+        source.button('🐍 Source code', on_click=set_page, args=('About me', ))
 
-        if st.session_state.page == 'Home':
+        contact = st.columns([.2, 1])
+        contact[1].button('✉️ Send me a message', on_click=set_page, args=('Message me', ))
+
+        if st.session_state.page == 'Homepage':
             st.image('https://c.tenor.com/-420uI8y-RkAAAAd/anime-welcome.gif', 'moshi-moshi!')
 
     load_page()
-
-    st.write(st.session_state)
 
 
 if __name__ == '__main__':
