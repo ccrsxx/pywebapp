@@ -8,10 +8,11 @@ def init():
     st.session_state.page = 'Home'
     st.session_state.pages = {
         'Home': home,
+        'About me': about,
+        'Message me': mail.main,
         'Guess Number': guess_number.main,
         'Guess Word': guess_word.main,
-        'Tic Tac Toe': tic_tac_toe.main,
-        'Contact me': mail.main
+        'Tic Tac Toe': tic_tac_toe.main
     }
 
 
@@ -42,6 +43,16 @@ def home():
         '''
     )
 
+def about():
+    
+    st.write(
+        '''
+        # Coming soon...
+
+        ---
+        '''
+    )
+
 
 def draw_style():
     st.set_page_config(
@@ -68,20 +79,23 @@ def set_page(loc=None, reset=False):
             if key not in ('project', 'pages', 'page', 'set', 'game'):
                 st.session_state.pop(key)
 
+    if loc:
+        st.session_state.page = loc
+    else:
+        st.session_state.page = st.session_state.set
+
     if reset:
         st.session_state.project = False
-    else:
+    elif st.session_state.page in ('Message me', 'About me'):
         st.session_state.project = True
-
-    if not loc:
-        st.session_state.page = st.session_state.set
+        st.session_state.game = False
     else:
-        st.session_state.page = loc
+        pass
 
-def change_button(status, game=False):
-    if game:
-        st.session_state.game = True
-    st.session_state.project = status
+def change_button():
+    set_page('Guess Number')
+    st.session_state.game = True
+    st.session_state.project = True
 
 def main():
     if 'page' not in st.session_state:
@@ -90,16 +104,19 @@ def main():
     draw_style()
 
     with st.sidebar:
-        st.write('# Side bar')
         project, about = st.columns([1, 1])
-        if st.session_state.project:
-            project.button('Home', on_click=set_page, args=('Home', True))
+
+        if not st.session_state.project:
+            project.button('📌 Project', on_click=change_button)
         else:
-            project.button('📌 Project', on_click=change_button, args=(True, True))
+            project.button('Home', on_click=set_page, args=('Home', True))
+
         if st.session_state.project and st.session_state.game:
             st.selectbox('Page contents', ['Guess Number', 'Guess Word', 'Tic Tac Toe'], key='set', on_change=set_page)
-        st.button('✉️ Send me a message', on_click=set_page, args=('Contact me', ))
-        about.button('About me')
+
+        st.button('✉️ Send me a message', on_click=set_page, args=('Message me', ))
+        about.button('About me', on_click=set_page, args=('About me', ))
+
         if st.session_state.page == 'Home':
             st.image('https://c.tenor.com/-420uI8y-RkAAAAd/anime-welcome.gif', 'moshi-moshi!')
 
