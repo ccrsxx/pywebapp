@@ -1,15 +1,19 @@
 import streamlit as st
-from games import guess_number, guess_word, tic_tac_toe
+from games import guess_number, guess_word, tic_tac_toe, mail
 
 
-def init(post_init=False):
-    if not post_init:
-        st.session_state.pages = {
-            'Home': home,
-            'Guess Number': guess_number.main,
-            'Guess Word': guess_word.main,
-            'Tic Tac Toe': tic_tac_toe.main,
-        }
+def init():
+    st.session_state.project = False
+    st.session_state.game = False
+    st.session_state.page = 'Homepage'
+    st.session_state.pages = {
+        'Homepage': home,
+        'About me': about,
+        'Message me': mail.main,
+        'Guess Number': guess_number.main,
+        'Guess Word': guess_word.main,
+        'Tic Tac Toe': tic_tac_toe.main
+    }
 
 
 def home():
@@ -40,6 +44,17 @@ def home():
     )
 
 
+def about():
+    
+    st.write(
+        '''
+        # Coming soon...
+
+        ---
+        '''
+    )
+
+
 def draw_style():
     st.set_page_config(
         page_title='fingar-fingar',
@@ -56,12 +71,34 @@ def draw_style():
     st.markdown(style, unsafe_allow_html=True)
 
 
-def cls():
-    for key in list(st.session_state.keys()):
-        if key != 'pages':
-            st.session_state.pop(key)
+def load_page():
+    st.session_state.pages[st.session_state.page]()
 
-    init(post_init=True)
+
+def set_page(loc=None, reset=False):
+    if not st.session_state.page == 'Homepage':
+        for key in list(st.session_state.keys()):
+            if key not in ('project', 'pages', 'page', 'set', 'game'):
+                st.session_state.pop(key)
+
+    if loc:
+        st.session_state.page = loc
+    else:
+        st.session_state.page = st.session_state.set
+
+    if reset:
+        st.session_state.project = False
+    elif st.session_state.page in ('Message me', 'About me'):
+        st.session_state.project = True
+        st.session_state.game = False
+    else:
+        pass
+
+
+def change_button():
+    set_page('Guess Number')
+    st.session_state.game = True
+    st.session_state.project = True
 
 
 def main():
@@ -71,15 +108,26 @@ def main():
     draw_style()
 
     with st.sidebar:
-        contact_me, about = st.columns([1.5, .8])
-        contact_me.button('✉️ Send me a message')
-        about.button('🧑‍💻 ccrsxx')
-        page = st.selectbox('Page contents', [
-                            'Home', 'Guess Number', 'Guess Word', 'Tic Tac Toe'], on_change=cls)
-        if page == 'Home':
+        project, about, source = st.columns([1, .8, 1])
+
+        if not st.session_state.project:
+            project.button('📌 Project', on_click=change_button)
+        else:
+            project.button('🏠 Homepage', on_click=set_page, args=('Homepage', True))
+
+        if st.session_state.project and st.session_state.game:
+            st.selectbox('Page contents', ['Guess Number', 'Guess Word', 'Tic Tac Toe'], key='set', on_change=set_page)
+
+        about.button('About me', on_click=set_page, args=('About me', ))
+        source.button('🐍 Source code', on_click=set_page, args=('About me', ))
+
+        contact = st.columns([.2, 1])
+        contact[1].button('✉️ Send me a message', on_click=set_page, args=('Message me', ))
+
+        if st.session_state.page == 'Homepage':
             st.image('https://c.tenor.com/-420uI8y-RkAAAAd/anime-welcome.gif', 'moshi-moshi!')
 
-    st.session_state.pages[page]()
+    load_page()
 
 
 if __name__ == '__main__':

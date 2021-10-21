@@ -22,14 +22,23 @@ def cls():
 
 
 def main():
-    st.image('https://c.tenor.com/xTB4BrdufJMAAAAC/anime-emilia.gif', 'Emilia', 400)
+    st.markdown(
+        '''
+        # Say something nice please...
+        
+        ---
+
+        <p align="center">
+            <img width="400" height="250" src="https://c.tenor.com/Y9g7q5u4W8IAAAAC/girl-please.gif" alt="preasee.."/>
+        </p>
+        '''
+    , unsafe_allow_html=True)
+
     if 'input' not in st.session_state:
         st.session_state.input = 0
 
     text = st.text_area('Sent me a message', key=st.session_state.input)
     st.button('Send', on_click=send_mail, args=(text, ))
-
-    st.write(st.session_state)
 
 
 if __name__ == '__main__':
