@@ -54,5 +54,6 @@ def main():
     text = st.text_area('Sent me a message', key=st.session_state.input)
     st.button('Send', on_click=send_mail, args=(text, ))
 
+
 if __name__ == '__main__':
     main()
