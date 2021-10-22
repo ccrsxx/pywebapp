@@ -3,15 +3,16 @@ import smtplib
 import os
 
 
-def send_mail(body: str):
+def send_mail(body: str, email: str = os.getenv('email'), password: str = os.getenv('password')):
     cls()
+
+    st.success(f'{email}, {password}')
 
     conn = smtplib.SMTP('smtp.gmail.com', 587)
     conn.ehlo()
     conn.starttls()
-    conn.login(os.getenv('email'), os.getenv('password'))
-    conn.sendmail(os.getenv('email'), os.getenv(
-        'email'), f'Subject: From WebApp\n\n{body}')
+    conn.login(email, password)
+    conn.sendmail(email, email, f'Subject: From WebApp\n\n{body}')
     conn.quit()
 
     st.success('Success. I will take a look at your message, thanks!')
