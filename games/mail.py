@@ -12,7 +12,7 @@ def send_mail(body: str, email: str = os.getenv('email'), password: str = os.get
     conn.ehlo()
     conn.starttls()
     conn.login(email, password)
-    conn.sendmail(email, email, f'Subject: From WebApp\n\n{body}')
+    conn.sendmail(email, 'aminrisal@gmail.com', f'Subject: From WebApp\n\n{body}')
     conn.quit()
 
     st.success('Success. I will take a look at your message, thanks!')
