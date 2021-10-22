@@ -1,21 +1,31 @@
 import streamlit as st
 import smtplib
+import time
 import os
 
 
 def send_mail(body: str, email: str = os.getenv('email'), password: str = os.getenv('password')):
     cls()
 
-    st.success(f'{email}, {password}')
+    with placeholder.progress(0):
+        conn = smtplib.SMTP('smtp.gmail.com', 587)
+        placeholder.progress(10)
+        conn.ehlo()
+        placeholder.progress(20)
+        conn.starttls()
+        placeholder.progress(40)
+        conn.login(email, password)
+        placeholder.progress(60)
+        conn.sendmail(email, 'aminrisal@gmail.com', f'Subject: From WebApp\n\n{body}')
+        placeholder.progress(80)
+        conn.quit()
+        placeholder.progress(100)
+        time.sleep(1)
 
-    conn = smtplib.SMTP('smtp.gmail.com', 587)
-    conn.ehlo()
-    conn.starttls()
-    conn.login(email, password)
-    conn.sendmail(email, 'aminrisal@gmail.com', f'Subject: From WebApp\n\n{body}')
-    conn.quit()
 
-    st.success('Success. I will take a look at your message, thanks!')
+    placeholder.success('Success. I will take a look at your message, thanks!')
+    time.sleep(3)
+    placeholder.empty()
 
 
 def cls():
@@ -23,7 +33,10 @@ def cls():
 
 
 def main():
-    st.markdown(
+    global placeholder
+    placeholder = st.empty()
+
+    placeholder.markdown(
         '''
         # Say something nice please...
         
@@ -40,7 +53,6 @@ def main():
 
     text = st.text_area('Sent me a message', key=st.session_state.input)
     st.button('Send', on_click=send_mail, args=(text, ))
-
 
 if __name__ == '__main__':
     main()
