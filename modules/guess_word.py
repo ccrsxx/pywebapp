@@ -1,5 +1,6 @@
 import streamlit as st
 import random
+import time
 import json
 import os
 
@@ -15,6 +16,24 @@ def get_word(language: str, length: int) -> str:
         return word
 
 
+def set_space(only_len=False):
+    word_len = len(st.session_state.word)
+    if only_len:
+        return word_len
+    if word_len <= 5:
+        return 5 - (word_len / 5)
+    elif word_len <= 10:
+        return 5 - (word_len / 5 + 0.5)
+    else:
+        return 5 - (word_len / 5 + 1)
+
+
+def load_box():
+    word = [c if c in st.session_state.guessed else '_' for c in st.session_state.word]
+    for i in range(set_space(True)):
+        guess_box[i + 1].button(word[i], key=i)
+
+
 def init(language: str = 'English', length: int = 6, heart: int = 5, post_init=False):
     if not post_init:
         st.session_state.input = 0
@@ -28,9 +47,12 @@ def restart():
     init(st.session_state.language, st.session_state.length,
          st.session_state.heart, post_init=True)
     st.session_state.input += 1
+    box.empty()
 
 
 def main():
+    global guess_box, box
+
     st.write(
         '''
         # 🔠 Guess Word
@@ -42,20 +64,19 @@ def main():
         init()
 
     reset, win, lives, settings = st.columns([.45, .3,  1, 1])
+    box = st.empty()
+    guess_box = box.columns([set_space()] + list(1 for _ in range(set_space(True))) + [set_space()])
     reset.button('New game', on_click=restart)
 
     with settings.expander('Settings'):
         st.write('**Warning**: changing one of these settings will restart your game')
-        st.selectbox('Set language', [
-                     'English', 'Indonesia'], key='language', on_change=restart)
-        st.select_slider('Set hearts', list(range(1, 11)),
-                         5, key='heart', on_change=restart)
-        st.slider('Set length of the word', 3, 20,
-                  6, key='length', on_change=restart)
+        st.selectbox('Set language', ['English', 'Indonesia'], key='language', on_change=restart)
+        st.select_slider('Set hearts', list(range(1, 11)),5, key='heart', on_change=restart)
+        st.slider('Set length of the word', 3, 16, 6, key='length', on_change=restart)
 
     placeholder, debug = st.empty(), st.empty()
-    guess = placeholder.text_input(
-        'Guess a letter', key=st.session_state.input, max_chars=1).lower()
+    
+    guess = placeholder.text_input('Guess a letter', key=st.session_state.input, max_chars=1).lower()
 
     if not guess or not guess.isalpha():
         debug.write('Please input letter')
@@ -78,17 +99,16 @@ def main():
         st.session_state.win += 1
         placeholder.empty()
 
-    lives.button(
-        f'{("❤️" * st.session_state.lives) if st.session_state.lives else "💀 Lost"}')
+    load_box()
+
+    lives.button(f'{("❤️" * st.session_state.lives) if st.session_state.lives else "💀 Lost"}')
     win.button(f'🏆 {st.session_state.win}')
+    
+    st.button(f'{" ".join(st.session_state.guessed) if st.session_state.guessed else "Used letter"}')
 
-    guess_box, letter_box = st.columns([1, .23])
-
-    guess_box.button(
-        ' - '.join([c if c in st.session_state.guessed else '_' for c in st.session_state.word]))
-    letter_box.button(
-        f'{" ".join(st.session_state.guessed) if st.session_state.guessed else "Letter History"}')
-
+    st.write(str([set_space()] + list(1 for _ in range(set_space(True))) + [set_space()]))
+    st.write(len(st.session_state.word))
+    st.write(st.session_state.word)
 
 if __name__ == '__main__':
     main()
