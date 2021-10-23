@@ -50,7 +50,7 @@ You can either run it on your local machine (localhost) or host it on a server, 
 3.  Create the app name, this will be your site name. Run:
 
     ```bash
-    heroku create sampe_app
+    heroku create sample_app
     ```
 
 4.  Push all the files to Heroku. Run:
