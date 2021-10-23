@@ -51,7 +51,7 @@ def main():
             debug.warning(f'{guess} is too high!')
         else:
             debug.success(
-                f'🎈 Yay! you guessed it right, it only took you {st.session_state.tries} tries')
+                f'Yay! you guessed it right, it only took you {st.session_state.tries} tries 🎈')
             st.session_state.over = True
             st.session_state.win += 1
             placeholder.empty()

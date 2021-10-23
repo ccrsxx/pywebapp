@@ -38,7 +38,7 @@ def home():
         3. Tic Tac Toe
 
         All of them can be accessed on the sidebar.
-        As for the source code, I will share it when all is finished.
+        As for the source code, I will share once all is finished.
         '''
     )
 

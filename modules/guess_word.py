@@ -49,7 +49,7 @@ def restart():
 
 
 def main():
-    global guess_box, box
+    global guess_box
 
     st.write(
         '''
@@ -94,7 +94,7 @@ def main():
 
     if st.session_state.lives == 0:
         debug.error(
-            f"😓 **You lost**, the word was **{st.session_state.word}**")
+            f"**You lost**, the word was **{st.session_state.word}** 😓")
         placeholder.empty()
     elif all(c in st.session_state.guessed for c in st.session_state.word):
         debug.success(f"**You win**, the word was {st.session_state.word} 🎈")
