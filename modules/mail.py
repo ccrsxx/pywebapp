@@ -4,9 +4,9 @@ import time
 import os
 
 
-def send_mail(body: str, email: str = os.getenv('email'), password: str = os.getenv('password')):
-    if body == '':
-        placeholder.warning('Where is the message, bruh?')
+def send_mail(sender:str, body: str, email: str = os.getenv('email'), password: str = os.getenv('password')):
+    if any(content == '' for content in (sender, body)):
+        placeholder.warning('Either sender or message is missing. Try again.')
         return time.sleep(2)
 
     cls()
@@ -21,7 +21,7 @@ def send_mail(body: str, email: str = os.getenv('email'), password: str = os.get
         placeholder.progress(40)
         conn.login(email, password)
         placeholder.progress(60)
-        conn.sendmail(email, 'aminrisal@gmail.com',f'Subject: From WebApp\n\n{body}')
+        conn.sendmail(email, 'aminrisal@gmail.com',f'Subject: From {sender}\n\n{body}')
         placeholder.progress(80)
         conn.quit()
         placeholder.progress(100)
@@ -42,20 +42,19 @@ def main():
 
     placeholder.markdown(
         '''
-        # Say something nice please...
-        
-        ---
+        <h1 align="center">
+            Send me a message
+        </h1>
 
-        <p align="center">
-            <img width="400" height="250" src="https://c.tenor.com/Y9g7q5u4W8IAAAAC/girl-please.gif" alt="preasee.."/>
-        </p>
+        ---
         ''', unsafe_allow_html=True)
 
     if 'input' not in st.session_state:
         st.session_state.input = 0
 
-    text = st.text_area('Sent me a message', key=st.session_state.input)
-    st.button('Send', on_click=send_mail, args=(text, ))
+    sender = st.text_input('Sender', value='Anonymous')
+    text = st.text_area('Message', key=st.session_state.input)
+    st.button('Send', on_click=send_mail, args=(sender, text))
 
 
 if __name__ == '__main__':
