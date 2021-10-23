@@ -1,5 +1,13 @@
 import streamlit as st
-from modules import guess_number, guess_word, tic_tac_toe, mail
+
+from modules import (
+    home,
+    about,
+    mail,
+    guess_number,
+    guess_word,
+    tic_tac_toe
+)
 
 
 def init():
@@ -7,53 +15,13 @@ def init():
     st.session_state.game = False
     st.session_state.page = 'Home'
     st.session_state.pages = {
-        'Home': home,
-        'About me': about,
+        'Home': home.main,
+        'About me': about.main,
         'Message me': mail.main,
         'Guess Number': guess_number.main,
         'Guess Word': guess_word.main,
         'Tic Tac Toe': tic_tac_toe.main
     }
-
-
-def home():
-    st.write(
-        '''
-        # Welcome to My Web App! 👋
-
-        ---
-
-        #### Intro
-
-        I made this web app to finish a project assigned by my teacher. 
-        While that's the main purpose of why I made this. 
-        The real purpose was to improve my coding skill, 
-        and I learned a lot while making this web app.
-        
-        This web app is written purely in Python.
-        It contains three games. The games are:
-
-        1. Guess Number
-        2. Guess Word
-        3. Tic Tac Toe
-
-        All of them can be accessed on the sidebar.
-        As for the source code, I will share once all is finished.
-        '''
-    )
-
-
-def about():
-    st.markdown(
-        '''
-        # Coming soon...
-
-        ---
-
-        <p align="center">
-            <img src="https://64.media.tumblr.com/fd9858c0e378f607cad664b8bc0fa219/tumblr_oqcfk7bbjo1uprh6zo1_540.gifv" alt="nothing here"/>
-        </p>
-        ''', unsafe_allow_html=True)
 
 
 def draw_style():
