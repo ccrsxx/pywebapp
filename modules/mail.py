@@ -7,7 +7,7 @@ import os
 def send_mail(body: str, email: str = os.getenv('email'), password: str = os.getenv('password')):
     if body == '':
         placeholder.warning('Where is the message, bruh?')
-        return time.sleep(3)
+        return time.sleep(2)
 
     cls()
 
