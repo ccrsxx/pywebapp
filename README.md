@@ -1,6 +1,6 @@
 # University Project
 
-## Intro
+## About
 
 I made this web app to finish a project assigned by my teacher. It is written entirely in Python, thanks to [streamlit](https://github.com/streamlit/streamlit) to make it possible.
 

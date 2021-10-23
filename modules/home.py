@@ -8,14 +8,14 @@ def main():
 
         ---
 
-        #### Intro
+        #### About
 
         I made this web app to finish a project assigned by my teacher. 
         While that's the main purpose of why I made this. 
         The real purpose was to improve my coding skill, 
         and I learned a lot while making this web app.
         
-        This web app is written purely in Python.
+        This web app is written entirely in Python.
         It contains three games. The games are:
 
         1. Guess Number
