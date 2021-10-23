@@ -63,7 +63,7 @@ def main():
 
     reset, win, lives, settings = st.columns([0.45, .3,  1, 1])
     guess_box = st.columns(
-        [set_space()] + list(1 for _ in range(set_space(True))) + [set_space()])
+        [set_space()] + [1 for _ in range(set_space(True))] + [set_space()])
 
     reset.button('New game', on_click=restart)
 

@@ -6,10 +6,12 @@ import os
 
 def send_mail(body: str, email: str = os.getenv('email'), password: str = os.getenv('password')):
     if body == '':
-        return st.warning('You can\'t send empty message.')
+        placeholder.warning('Where is the message, bruh?')
+        return time.sleep(3)
 
     cls()
 
+    time.sleep(1)
     with placeholder.progress(0):
         conn = smtplib.SMTP('smtp.gmail.com', 587)
         placeholder.progress(10)
