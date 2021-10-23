@@ -17,7 +17,6 @@ def init():
 
 
 def home():
-
     st.write(
         '''
         # Welcome to My Web App! 👋
@@ -45,7 +44,6 @@ def home():
 
 
 def about():
-    
     st.markdown(
         '''
         # Coming soon...
@@ -55,13 +53,12 @@ def about():
         <p align="center">
             <img src="https://64.media.tumblr.com/fd9858c0e378f607cad664b8bc0fa219/tumblr_oqcfk7bbjo1uprh6zo1_540.gifv" alt="nothing here"/>
         </p>
-        '''
-    , unsafe_allow_html=True)
+        ''', unsafe_allow_html=True)
 
 
 def draw_style():
     st.set_page_config(
-        page_title='Risal\'s Project',
+        page_title='ccrsxx\'s Project',
         page_icon='📚'
     )
 
@@ -120,16 +117,19 @@ def main():
             project.button('🏠 Home', on_click=set_page, args=('Home', True))
 
         if st.session_state.project and st.session_state.game:
-            st.selectbox('Page contents', ['Guess Number', 'Guess Word', 'Tic Tac Toe'], key='set', on_change=set_page)
+            st.selectbox('Page contents', [
+                         'Guess Number', 'Guess Word', 'Tic Tac Toe'], key='set', on_change=set_page)
 
         about.button('About me', on_click=set_page, args=('About me', ))
         source.button('Sauce', on_click=set_page, args=('About me', ))
 
         contact = st.columns([.2, 1])
-        contact[1].button('✉️ Send me a message', on_click=set_page, args=('Message me', ))
+        contact[1].button('✉️ Send me a message',
+                          on_click=set_page, args=('Message me', ))
 
         if st.session_state.page == 'Home':
-            st.image('https://c.tenor.com/-420uI8y-RkAAAAd/anime-welcome.gif', 'moshi-moshi!')
+            st.image(
+                'https://c.tenor.com/-420uI8y-RkAAAAd/anime-welcome.gif', 'moshi-moshi!')
 
     load_page()
 

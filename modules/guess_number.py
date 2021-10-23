@@ -31,12 +31,12 @@ def main():
     if 'number' not in st.session_state:
         init()
 
-
     reset, win, set_range = st.columns([.39, 1, 1])
     reset.button('New game', on_click=restart)
 
     with set_range.expander('Settings'):
-        st.select_slider('Set max range', [10**i for i in range(1, 6)], value=100, key='length', on_change=restart)
+        st.select_slider('Set max range', [
+                         10**i for i in range(1, 6)], value=100, key='length', on_change=restart)
 
     placeholder, debug = st.empty(), st.empty()
     guess = placeholder.number_input(
@@ -50,7 +50,8 @@ def main():
         elif guess > st.session_state.number:
             debug.warning(f'{guess} is too high!')
         else:
-            debug.success(f'🎈 Yay! you guessed it right, it only took you {st.session_state.tries} tries')
+            debug.success(
+                f'🎈 Yay! you guessed it right, it only took you {st.session_state.tries} tries')
             st.session_state.over = True
             st.session_state.win += 1
             placeholder.empty()
