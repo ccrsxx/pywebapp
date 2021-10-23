@@ -113,8 +113,7 @@ def main():
     score.button(
         f'❌{st.session_state.win["X"]} 🆚 {st.session_state.win["O"]}⭕')
     player.button(
-        f'{"❌" if st.session_state.player == "X" else "⭕"}\'s turn'
-        if not st.session_state.winner else f'🏁 Game finished')
+        f'{"❌" if st.session_state.player == "X" else "⭕"}\'s turn'if not st.session_state.winner else f'🏁 Game finished')
 
 
 if __name__ == '__main__':

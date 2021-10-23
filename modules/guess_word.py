@@ -15,6 +15,24 @@ def get_word(language: str, length: int) -> str:
         return word
 
 
+def set_space(only_len=False) -> int:
+    word_len = len(st.session_state.word)
+    if only_len:
+        return word_len
+    if word_len <= 5:
+        return 5 - (word_len / 5)
+    elif word_len <= 10:
+        return 5 - (word_len / 5 + 0.5)
+    else:
+        return 5 - (word_len / 5 + 1)
+
+
+def load_box():
+    word = [c if c in st.session_state.guessed else '_' for c in st.session_state.word]
+    for i in range(set_space(True)):
+        guess_box[i + 1].button(word[i], key=i)
+
+
 def init(language: str = 'English', length: int = 6, heart: int = 5, post_init=False):
     if not post_init:
         st.session_state.input = 0
@@ -31,6 +49,8 @@ def restart():
 
 
 def main():
+    global guess_box
+
     st.write(
         '''
         # 🔠 Guess Word
@@ -41,7 +61,10 @@ def main():
     if 'word' not in st.session_state:
         init()
 
-    reset, win, lives, settings = st.columns([.45, .3,  1, 1])
+    reset, win, lives, settings = st.columns([0.45, .3,  1, 1])
+    guess_box = st.columns(
+        [set_space()] + list(1 for _ in range(set_space(True))) + [set_space()])
+
     reset.button('New game', on_click=restart)
 
     with settings.expander('Settings'):
@@ -50,7 +73,7 @@ def main():
                      'English', 'Indonesia'], key='language', on_change=restart)
         st.select_slider('Set hearts', list(range(1, 11)),
                          5, key='heart', on_change=restart)
-        st.slider('Set length of the word', 3, 20,
+        st.slider('Set length of the word', 3, 16,
                   6, key='length', on_change=restart)
 
     placeholder, debug = st.empty(), st.empty()
@@ -71,23 +94,21 @@ def main():
 
     if st.session_state.lives == 0:
         debug.error(
-            f"😓 **You lost**, the word was **{st.session_state.word}**")
+            f"**You lost**, the word was **{st.session_state.word}** 😓")
         placeholder.empty()
     elif all(c in st.session_state.guessed for c in st.session_state.word):
-        debug.success(f"🎈 **YOU WIN**")
+        debug.success(f"**You win**, the word was {st.session_state.word} 🎈")
         st.session_state.win += 1
         placeholder.empty()
+
+    load_box()
 
     lives.button(
         f'{("❤️" * st.session_state.lives) if st.session_state.lives else "💀 Lost"}')
     win.button(f'🏆 {st.session_state.win}')
 
-    guess_box, letter_box = st.columns([1, .23])
-
-    guess_box.button(
-        ' - '.join([c if c in st.session_state.guessed else '_' for c in st.session_state.word]))
-    letter_box.button(
-        f'{" ".join(st.session_state.guessed) if st.session_state.guessed else "Letter History"}')
+    st.button(
+        f'{" ".join(st.session_state.guessed) if st.session_state.guessed else "Used letter"}')
 
 
 if __name__ == '__main__':
