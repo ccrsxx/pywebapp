@@ -3,6 +3,7 @@ import streamlit as st
 from modules import (
     home,
     about,
+    source,
     mail,
     guess_number,
     guess_word,
@@ -13,10 +14,11 @@ from modules import (
 def init():
     st.session_state.project = False
     st.session_state.game = False
-    st.session_state.page = 'Home'
+    st.session_state.page = 'Homepage'
     st.session_state.pages = {
-        'Home': home.main,
+        'Homepage': home.main,
         'About me': about.main,
+        'Source': source.main,
         'Message me': mail.main,
         'Guess Number': guess_number.main,
         'Guess Word': guess_word.main,
@@ -45,7 +47,7 @@ def load_page():
 
 
 def set_page(loc=None, reset=False):
-    if not st.session_state.page == 'Home':
+    if not st.session_state.page == 'Homepage':
         for key in list(st.session_state.keys()):
             if key not in ('project', 'game', 'page', 'pages', 'set'):
                 st.session_state.pop(key)
@@ -77,27 +79,24 @@ def main():
     draw_style()
 
     with st.sidebar:
-        project, about, source = st.columns([1, 1, .7])
+        project, about, source = st.columns([1.2, 1, 1])
+        contact = st.columns([.2, 1])
 
         if not st.session_state.project:
-            project.button('📌 Project', on_click=change_button)
+            project.button('📌 Projects', on_click=change_button)
         else:
-            project.button('🏠 Home', on_click=set_page, args=('Home', True))
+            project.button('🏠 Homepage', on_click=set_page, args=('Homepage', True))
 
         if st.session_state.project and st.session_state.game:
-            st.selectbox('Page contents', [
-                         'Guess Number', 'Guess Word', 'Tic Tac Toe'], key='set', on_change=set_page)
+            st.selectbox('List of projects', ['Guess Number', 'Guess Word', 'Tic Tac Toe'], key='set', on_change=set_page)
 
-        about.button('About me', on_click=set_page, args=('About me', ))
-        source.button('Sauce', on_click=set_page, args=('About me', ))
+        about.button('🧑‍💻 Myself', on_click=set_page, args=('About me', ))
+        source.button('📁 Source', on_click=set_page, args=('Source', ))
 
-        contact = st.columns([.2, 1])
-        contact[1].button('✉️ Send me a message',
-                          on_click=set_page, args=('Message me', ))
+        contact[1].button('✉️ Send me a message', on_click=set_page, args=('Message me', ))
 
-        if st.session_state.page == 'Home':
-            st.image(
-                'https://c.tenor.com/-420uI8y-RkAAAAd/anime-welcome.gif', 'moshi-moshi!')
+        if st.session_state.page == 'Homepage':
+            st.image('https://c.tenor.com/-420uI8y-RkAAAAd/anime-welcome.gif')
 
     load_page()
 
