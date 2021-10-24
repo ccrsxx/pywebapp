@@ -12,9 +12,10 @@ from modules import (
 
 
 def init():
+    st.session_state.page = 'Homepage'
     st.session_state.project = False
     st.session_state.game = False
-    st.session_state.page = 'Homepage'
+
     st.session_state.pages = {
         'Homepage': home.main,
         'About me': about.main,

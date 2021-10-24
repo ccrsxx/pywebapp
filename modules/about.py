@@ -5,13 +5,12 @@ def main():
     st.markdown(
         '''
         <p align="center">
-            <img width="400" height="200" src="https://data.ygosu.com/editor/attach/20161124/20161124015016_xgwtbabv.gif" alt="emt"/>
+            <img width="380" height="200" src="https://data.ygosu.com/editor/attach/20161124/20161124015016_xgwtbabv.gif" alt="emt"/>
         </p>
 
         <h2 align="center">
             Hi, I'm Risal a.k.a ccrsxx
         </h2>
-
 
         ##### Short bio
 
@@ -23,12 +22,12 @@ def main():
 
         ##### Reach me
 
-        <p align="center">
+        <h5 align="center">
             <strong><a href="https://github.com/ccrsxx">Github</a></strong> |
             <strong><a href="https://twitter.com/ccrsxx">Twitter</a></strong> |
             <strong><a href="https://discord.gg/Q7xmfYG3Ut">Discord</a></strong> |
             <strong><a href="https://wa.me/6285925300629">WhatsApp</a></strong>
-        </p>
+        </h5>
         '''
         , unsafe_allow_html=True)
 

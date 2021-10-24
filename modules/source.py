@@ -4,15 +4,23 @@ import streamlit as st
 def main():
     st.markdown(
         '''
-        <h1 align="center">
-            Coming soon...
-        </h1>
+        ## Source Code
+        
+        Finally It's finished. Now, you can find the source code [here](https://github.com/ccrsxx/University-Project) on my Github repository.
 
-        ---
+        ## Contributing to My Project
 
-        <p align="center">
-            <img src="https://64.media.tumblr.com/fd9858c0e378f607cad664b8bc0fa219/tumblr_oqcfk7bbjo1uprh6zo1_540.gifv" alt="nothing here"/>
-        </p>
+        I love your input! You can contribute to the project with:
+
+        - Reporting a bug
+        - Discussing the current state of the code
+        - Submitting a fix
+        - Proposing new features
+        - Becoming a maintainer
+
+        ## License
+
+        By contributing, you agree that your contributions will be licensed under its MIT License.
         ''', 
         unsafe_allow_html=True)
 
