@@ -41,7 +41,7 @@ You can either run it on your local machine (localhost) or host it on a server, 
     git clone https://github.com/ccrsxx/University-Project.git
     ```
 
-2.  Login Heroku. Make sure [heroku-cli](https://devcenter.heroku.com/articles/heroku-cli) is installed and run:
+2.  Login to your Heroku account. Make sure [heroku-cli](https://devcenter.heroku.com/articles/heroku-cli) is installed and run:
 
     ```bash
     heroku login
