@@ -21,7 +21,7 @@ def send_mail(sender:str, body: str, email: str = os.getenv('email'), password: 
         placeholder.progress(40)
         conn.login(email, password)
         placeholder.progress(60)
-        conn.sendmail(email, 'aminrisal@gmail.com',f'Subject: From {sender}\n\n{body}')
+        conn.sendmail(email, 'aminrisal@gmail.com', f'Subject: From {sender}\n\n{body}')
         placeholder.progress(80)
         conn.quit()
         placeholder.progress(100)
