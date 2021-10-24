@@ -9,6 +9,10 @@ def send_mail(sender:str, body: str, email: str = os.getenv('email'), password: 
         placeholder.warning('Either sender or message is missing. Try again.')
         return time.sleep(2)
 
+    if email is None:
+        email = st.secrets['email']
+        password = st.secrets['password']
+
     cls()
 
     time.sleep(1)
