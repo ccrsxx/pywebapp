@@ -4,19 +4,24 @@ import time
 import os
 
 
-def send_mail(sender:str, body: str, email: str = os.getenv('email'), password: str = os.getenv('password')):
+def send_mail(sender:str, body: str):
     if any(content == '' for content in (sender, body)):
         placeholder.warning('Either sender or message is missing. Try again.')
         return time.sleep(2)
 
+    email = os.getenv('email')
+    password = os.getenv('password')
+    target = os.getenv('target')
+
     if email is None:
         email = st.secrets['email']
         password = st.secrets['password']
+        target = st.secrets['target']
 
     cls()
 
-    time.sleep(1)
     with placeholder.progress(0):
+        time.sleep(1)
         conn = smtplib.SMTP('smtp.gmail.com', 587)
         placeholder.progress(10)
         conn.ehlo()
@@ -25,7 +30,7 @@ def send_mail(sender:str, body: str, email: str = os.getenv('email'), password: 
         placeholder.progress(40)
         conn.login(email, password)
         placeholder.progress(60)
-        conn.sendmail(email, 'aminrisal@gmail.com', f'Subject: From {sender}\n\n{body}')
+        conn.sendmail(email, target, f'Subject: From {sender}\n\n{body}')
         placeholder.progress(80)
         conn.quit()
         placeholder.progress(100)

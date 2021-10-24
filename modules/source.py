@@ -10,7 +10,7 @@ def main():
 
         ## Contributing to My Project
 
-        I love your input! You can contribute to the project with:
+        I love your input! You can contribute to the project by:
 
         - Reporting a bug
         - Discussing the current state of the code

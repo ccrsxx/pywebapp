@@ -50,7 +50,7 @@ def load_page():
 def set_page(loc=None, reset=False):
     if not st.session_state.page == 'Homepage':
         for key in list(st.session_state.keys()):
-            if key not in ('project', 'game', 'page', 'pages', 'set'):
+            if key not in ('page', 'project', 'game', 'pages', 'set'):
                 st.session_state.pop(key)
 
     if loc:
