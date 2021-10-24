@@ -25,7 +25,7 @@ def main():
         3. Tic Tac Toe
 
         All of them can be accessed on the sidebar.
-        As for the source code, I will share it once all is finished.
+        As for the source code, you can find it on the source tab.
         '''
     , unsafe_allow_html=True)
 
