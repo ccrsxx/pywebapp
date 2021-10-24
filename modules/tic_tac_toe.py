@@ -82,7 +82,6 @@ def main():
     st.write(
         """
         # ❎🅾️ Tic Tac Toe
-        University project, still in development by **ccrsxx#8408**
         """
     )
 

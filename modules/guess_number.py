@@ -24,14 +24,13 @@ def main():
     st.write(
         """
         # 🔢 Guess Number
-        University project, still in development by **ccrsxx#8408**
         """
     )
 
     if 'number' not in st.session_state:
         init()
 
-    reset, win, set_range = st.columns([.39, 1, 1])
+    reset, win, set_range = st.columns([0.39, 1, 1])
     reset.button('New game', on_click=restart)
 
     with set_range.expander('Settings'):

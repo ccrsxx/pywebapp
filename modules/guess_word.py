@@ -54,7 +54,6 @@ def main():
     st.write(
         '''
         # 🔠 Guess Word
-        University project, still in development by **ccrsxx#8408**
         '''
     )
 
