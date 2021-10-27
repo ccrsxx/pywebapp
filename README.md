@@ -1,8 +1,12 @@
 # University Project
 
+[![Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/ccrsxx/pywebapp/app.py)
+[![Heroku](https://pyheroku-badge.herokuapp.com/?app=ccrsxx)](https://ccrsxx.herokuapp.com)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 ## About
 
-I made this web app to finish a project assigned by my teacher. It is written entirely in Python, thanks to [streamlit](https://github.com/streamlit/streamlit) to make it possible.
+I made this web app to finish a project assigned by my teacher. It is written entirely in Python, thanks to [Streamlit](https://github.com/streamlit/streamlit) to make it possible.
 
 It contains three games. The games are:
 
