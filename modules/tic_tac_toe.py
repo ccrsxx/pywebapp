@@ -44,8 +44,7 @@ def check_state():
         st.warning('⚠️ This move already exist')
     if st.session_state.winner and not st.session_state.over:
         st.session_state.over = True
-        st.session_state.win[st.session_state.winner] = st.session_state.win.get(
-            st.session_state.winner, 0) + 1
+        st.session_state.win[st.session_state.winner] = st.session_state.win.get(st.session_state.winner, 0) + 1
     elif not check_available_moves() and not st.session_state.winner:
         st.info(f'It\'s a tie 📍')
         st.session_state.over = True
@@ -93,8 +92,7 @@ def main():
 
     with settings.expander('Settings'):
         st.write('**Warning**: changing this setting will restart your game')
-        st.selectbox('Set opponent', ['Computer', 'Human'],
-                     key='opponent', on_change=init, args=(True, ))
+        st.selectbox('Set opponent', ['Computer', 'Human'], key='opponent', on_change=init, args=(True, ))
 
     for i, row in enumerate(st.session_state.board):
         cols = st.columns([5, 1, 1, 1, 5])
@@ -109,10 +107,8 @@ def main():
 
     check_state()
 
-    score.button(
-        f'❌{st.session_state.win["X"]} 🆚 {st.session_state.win["O"]}⭕')
-    player.button(
-        f'{"❌" if st.session_state.player == "X" else "⭕"}\'s turn'if not st.session_state.winner else f'🏁 Game finished')
+    score.button(f'❌{st.session_state.win["X"]} 🆚 {st.session_state.win["O"]}⭕')
+    player.button(f'{"❌" if st.session_state.player == "X" else "⭕"}\'s turn'if not st.session_state.winner else f'🏁 Game finished')
 
 
 if __name__ == '__main__':
