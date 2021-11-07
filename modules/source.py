@@ -21,8 +21,7 @@ def main():
         ## License
 
         By contributing, you agree that your contributions will be licensed under its MIT License.
-        ''', 
-        unsafe_allow_html=True)
+        ''', unsafe_allow_html=True)
 
 
 if __name__ == '__main__':
