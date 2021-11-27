@@ -5,7 +5,7 @@ import random
 
 def init(post_init=False):
     if not post_init:
-        st.session_state.opponent = 'Computer'
+        st.session_state.opponent = 'Human'
         st.session_state.win = {'X': 0, 'O': 0}
     st.session_state.board = np.full((3, 3), '.', dtype=str)
     st.session_state.player = 'X'
@@ -61,8 +61,8 @@ def check_win(board):
 def computer_player():
     moves = check_available_moves(extra=True)
     if moves:
-        computer_move = random.choice(moves)
-        handle_click(computer_move[0], computer_move[1])
+        i, j = random.choice(moves)
+        handle_click(i, j)
 
 
 def handle_click(i, j):
@@ -92,7 +92,7 @@ def main():
 
     with settings.expander('Settings'):
         st.write('**Warning**: changing this setting will restart your game')
-        st.selectbox('Set opponent', ['Computer', 'Human'], key='opponent', on_change=init, args=(True, ))
+        st.selectbox('Set opponent', ['Human', 'Computer'], key='opponent', on_change=init, args=(True, ))
 
     for i, row in enumerate(st.session_state.board):
         cols = st.columns([5, 1, 1, 1, 5])
