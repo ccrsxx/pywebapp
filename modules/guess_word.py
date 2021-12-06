@@ -7,12 +7,13 @@ import os
 def get_word(language: str, length: int) -> str:
     with open(os.path.join('assets', 'language.json')) as raw:
         data = json.load(raw)[language]
+
+    word = random.choice(data)
+
+    while not 3 <= len(word) <= length or any(c in word for c in (' ', '-')):
         word = random.choice(data)
 
-        while not 3 <= len(word) <= length or any(c in word for c in (' ', '-')):
-            word = random.choice(data)
-
-        return word
+    return word
 
 
 def set_space(only_len=False) -> int:
