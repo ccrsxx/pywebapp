@@ -4,7 +4,7 @@ import time
 import os
 
 
-def send_mail(sender:str, body: str):
+def send_mail(sender: str, body: str):
     if any(content == '' for content in (sender, body)):
         placeholder.warning('Either sender or message is missing. Try again.')
         return time.sleep(2)
@@ -56,7 +56,9 @@ def main():
         </h1>
 
         ---
-        ''', unsafe_allow_html=True)
+        ''',
+        unsafe_allow_html=True,
+    )
 
     if 'input' not in st.session_state:
         st.session_state.input = 0

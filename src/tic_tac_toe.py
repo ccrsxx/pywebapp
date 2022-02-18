@@ -44,7 +44,9 @@ def check_state():
         st.warning('⚠️ This move already exist')
     if st.session_state.winner and not st.session_state.over:
         st.session_state.over = True
-        st.session_state.win[st.session_state.winner] = st.session_state.win.get(st.session_state.winner, 0) + 1
+        st.session_state.win[st.session_state.winner] = (
+            st.session_state.win.get(st.session_state.winner, 0) + 1
+        )
     elif not check_available_moves() and not st.session_state.winner:
         st.info(f'It\'s a tie 📍')
         st.session_state.over = True
@@ -87,28 +89,40 @@ def main():
     if "board" not in st.session_state:
         init()
 
-    reset, score, player, settings = st.columns([.5, .6,  1, 1])
-    reset.button('New game', on_click=init, args=(True, ))
+    reset, score, player, settings = st.columns([0.5, 0.6, 1, 1])
+    reset.button('New game', on_click=init, args=(True,))
 
     with settings.expander('Settings'):
         st.write('**Warning**: changing this setting will restart your game')
-        st.selectbox('Set opponent', ['Human', 'Computer'], key='opponent', on_change=init, args=(True, ))
+        st.selectbox(
+            'Set opponent',
+            ['Human', 'Computer'],
+            key='opponent',
+            on_change=init,
+            args=(True,),
+        )
 
     for i, row in enumerate(st.session_state.board):
         cols = st.columns([5, 1, 1, 1, 5])
         for j, field in enumerate(row):
-            cols[j+1].button(
+            cols[j + 1].button(
                 field,
                 key=f"{i}-{j}",
-                on_click=handle_click if st.session_state.player == 'X' or
-                    st.session_state.opponent == 'Human' else computer_player(),
+                on_click=handle_click
+                if st.session_state.player == 'X'
+                or st.session_state.opponent == 'Human'
+                else computer_player(),
                 args=(i, j),
             )
 
     check_state()
 
     score.button(f'❌{st.session_state.win["X"]} 🆚 {st.session_state.win["O"]}⭕')
-    player.button(f'{"❌" if st.session_state.player == "X" else "⭕"}\'s turn'if not st.session_state.winner else f'🏁 Game finished')
+    player.button(
+        f'{"❌" if st.session_state.player == "X" else "⭕"}\'s turn'
+        if not st.session_state.winner
+        else f'🏁 Game finished'
+    )
 
 
 if __name__ == '__main__':

@@ -28,8 +28,9 @@ def main():
             <strong><a href="https://discord.gg/Q7xmfYG3Ut">Discord</a></strong> |
             <strong><a href="https://wa.me/6285925300629">WhatsApp</a></strong>
         </h5>
-        '''
-        , unsafe_allow_html=True)
+        ''',
+        unsafe_allow_html=True,
+    )
 
 
 if __name__ == '__main__':

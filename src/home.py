@@ -26,8 +26,9 @@ def main():
 
         All of them can be accessed on the sidebar.
         As for the source code, you can find it on the source tab.
-        '''
-    , unsafe_allow_html=True)
+        ''',
+        unsafe_allow_html=True,
+    )
 
 
 if __name__ == '__main__':

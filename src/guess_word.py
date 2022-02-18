@@ -5,7 +5,7 @@ import os
 
 
 def get_word(language: str, length: int) -> str:
-    with open(os.path.join('assets', 'language.json')) as raw:
+    with open(os.path.join('src', 'assets', 'language.json')) as raw:
         data = json.load(raw)[language]
 
     word = random.choice(data)
@@ -44,8 +44,12 @@ def init(language: str = 'English', length: int = 6, heart: int = 5, post_init=F
 
 
 def restart():
-    init(st.session_state.language, st.session_state.length,
-         st.session_state.heart, post_init=True)
+    init(
+        st.session_state.language,
+        st.session_state.length,
+        st.session_state.heart,
+        post_init=True,
+    )
     st.session_state.input += 1
 
 
@@ -61,19 +65,25 @@ def main():
     if 'word' not in st.session_state:
         init()
 
-    reset, win, lives, settings = st.columns([.45, .3,  1, 1])
+    reset, win, lives, settings = st.columns([0.45, 0.3, 1, 1])
     guess_box = st.columns([set_space()] + [1] * set_space(True) + [set_space()])
 
     reset.button('New game', on_click=restart)
 
     with settings.expander('Settings'):
         st.write('**Warning**: changing one of these settings will restart your game')
-        st.selectbox('Set language', ['English', 'Indonesia'], key='language', on_change=restart)
-        st.select_slider('Set hearts', list(range(1, 11)), 5, key='heart', on_change=restart)
+        st.selectbox(
+            'Set language', ['English', 'Indonesia'], key='language', on_change=restart
+        )
+        st.select_slider(
+            'Set hearts', list(range(1, 11)), 5, key='heart', on_change=restart
+        )
         st.slider('Set length of the word', 3, 16, 6, key='length', on_change=restart)
 
     placeholder, debug = st.empty(), st.empty()
-    guess = placeholder.text_input('Guess a letter', key=st.session_state.input, max_chars=1).lower()
+    guess = placeholder.text_input(
+        'Guess a letter', key=st.session_state.input, max_chars=1
+    ).lower()
 
     if not guess or not guess.isalpha():
         debug.write('Please input letter')
@@ -97,10 +107,14 @@ def main():
 
     load_box()
 
-    lives.button(f'{("❤️" * st.session_state.lives) if st.session_state.lives else "💀 Lost"}')
+    lives.button(
+        f'{("❤️" * st.session_state.lives) if st.session_state.lives else "💀 Lost"}'
+    )
     win.button(f'🏆 {st.session_state.win}')
 
-    st.button(f'{" ".join(st.session_state.guessed) if st.session_state.guessed else "Used letter"}')
+    st.button(
+        f'{" ".join(st.session_state.guessed) if st.session_state.guessed else "Used letter"}'
+    )
 
 
 if __name__ == '__main__':

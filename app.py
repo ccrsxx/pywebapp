@@ -1,14 +1,6 @@
 import streamlit as st
 
-from modules import (
-    home,
-    about,
-    source,
-    mail,
-    guess_number,
-    guess_word,
-    tic_tac_toe
-)
+from src import home, about, source, mail, guess_number, guess_word, tic_tac_toe
 
 
 def init():
@@ -23,15 +15,12 @@ def init():
         'Message me': mail.main,
         'Guess Number': guess_number.main,
         'Guess Word': guess_word.main,
-        'Tic Tac Toe': tic_tac_toe.main
+        'Tic Tac Toe': tic_tac_toe.main,
     }
 
 
 def draw_style():
-    st.set_page_config(
-        page_title='ccrsxx\'s Project',
-        page_icon='📚'
-    )
+    st.set_page_config(page_title='ccrsxx\'s Project', page_icon='📚')
 
     style = """
         <style>
@@ -81,7 +70,7 @@ def main():
 
     with st.sidebar:
         project, about, source = st.columns([1.2, 1, 1])
-        contact = st.columns([.2, 1])
+        contact = st.columns([0.2, 1])
 
         if not st.session_state.project:
             project.button('📌 Projects', on_click=change_button)
@@ -89,12 +78,19 @@ def main():
             project.button('🏠 Homepage', on_click=set_page, args=('Homepage', True))
 
         if st.session_state.project and st.session_state.game:
-            st.selectbox('List of projects', ['Guess Number', 'Guess Word', 'Tic Tac Toe'], key='set', on_change=set_page)
+            st.selectbox(
+                'List of projects',
+                ['Guess Number', 'Guess Word', 'Tic Tac Toe'],
+                key='set',
+                on_change=set_page,
+            )
 
-        about.button('🧑‍💻 Myself', on_click=set_page, args=('About me', ))
-        source.button('📁 Source', on_click=set_page, args=('Source', ))
+        about.button('🧑‍💻 Myself', on_click=set_page, args=('About me',))
+        source.button('📁 Source', on_click=set_page, args=('Source',))
 
-        contact[1].button('✉️ Send me a message', on_click=set_page, args=('Message me', ))
+        contact[1].button(
+            '✉️ Send me a message', on_click=set_page, args=('Message me',)
+        )
 
         if st.session_state.page == 'Homepage':
             st.image('https://c.tenor.com/-420uI8y-RkAAAAd/anime-welcome.gif')
