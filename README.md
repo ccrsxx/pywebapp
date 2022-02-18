@@ -3,6 +3,7 @@
 ![Build](https://github.com/ccrsxx/pywebapp/actions/workflows/codeql-analysis.yml/badge.svg)
 [![Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/ccrsxx/pywebapp/main/app.py)
 [![Heroku](https://pyheroku-badge.herokuapp.com/?app=ccrsxx)](https://ccrsxx.herokuapp.com)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 ## About
